@@ -32,13 +32,13 @@ body{
   height: 90vh;
   background: #FFF8DC;
 }
-.input-container{
+.input-container, .input-elements{
   display: flex;
   flex-direction: column;
   gap: 1vh;
   width: 30vw;
 }
-.input-container input{
+.input-elements input{
   padding: .5vh 1vw;
 }
 .input-buttons{
