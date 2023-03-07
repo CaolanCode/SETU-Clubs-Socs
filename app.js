@@ -1,7 +1,11 @@
 const inputElements = document.querySelector('.input-elements')
 
+const clearContainer = (() => {
+  inputElements.innerHTML = ''
+})
 
 const signIn = (() => {
+  clearContainer()
   // username
   const usernameInput = document.createElement('input')
   usernameInput.placeholder = 'Username'
@@ -16,9 +20,10 @@ const signIn = (() => {
   passwordInput.id = 'pwd-input'
   inputElements.appendChild(usernameInput)
   inputElements.appendChild(passwordInput)
-})()
+})
 
 const register = (() => {
+  clearContainer()
   // 
 })
 
@@ -26,8 +31,8 @@ const register = (() => {
 const registerButton = document.getElementById('register')
 const signInButton = document.getElementById('sign-in')
 
-signInButton.addEventListener('click', () => {
-  signIn
-})
+signInButton.addEventListener('click', signIn)
+registerButton.addEventListener('click', register)
+window.onload = () => signIn()
 
 
