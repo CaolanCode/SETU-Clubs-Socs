@@ -40,36 +40,6 @@ body{
   height: 90vh;
   background: linear-gradient(#e66465, #9198e5);
 }
-/*
-.input-container, .input-elements{
-  display: flex;
-  flex-direction: column;
-  gap: 1vh;
-  width: 20vw;
-}
-.input-elements input{
-  padding: 1vh 1vw;
-  border-radius: 1vw;
-}
-.input-buttons{
-  display: flex;
-  gap: 1vw;
-}
-.input-buttons button{
-  flex: 1;
-  padding: 1vh;
-  border-radius: 1vw;
-}
-.input-buttons button, .header-buttons button{
-  cursor: pointer;
-}
-.input-buttons button:hover, .header-buttons button:hover{
-  background-color: rgba(255, 255, 255, 0.9);
-}
-.input-buttons button, .input-elements input{
-  border: none;
-}
-*/
 .form{
   display: flex;
   flex-direction: column;
