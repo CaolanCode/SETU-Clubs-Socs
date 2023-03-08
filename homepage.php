@@ -12,7 +12,9 @@
 <body>
   <div class="header">
     SETU Clubs & Societies
-    <div class="header-buttons"></div>
+    <div class="header-buttons">
+      <button id="logout">Log-out</button>
+    </div>
   </div>
   <div class="main-container">
     <form action="" method="post" class="form">

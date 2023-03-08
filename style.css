@@ -5,7 +5,6 @@
   padding: 0;
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  border: 1px solid black;
 }
 body{
   min-height: 100vh;
@@ -40,10 +39,12 @@ body{
   height: 90vh;
   background: linear-gradient(#e66465, #9198e5);
 }
+/* form */
 .form{
   display: flex;
   flex-direction: column;
   gap: 1vh;
+  width: 20vw;
 
 }
 .form > input{
@@ -54,14 +55,26 @@ body{
   display: flex;
   gap: 1vw;
 }
-.form-buttons input, .header-buttons button{
+.form-buttons input, .header-buttons button, .form-row > input{
   cursor: pointer;
 }
 .form-buttons input:hover, .header-buttons button:hover{
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgb(255, 255, 255);
 }
 .form-buttons > input{
   flex: 1;
   padding: 1vh;
   border-radius: 1vw;
+}
+.form-buttons > input, .form > input {
+  border: none;
+}
+.form-row{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 1vw;
+}
+.form-row > label{
+  font-size: 0.8rem;
 }
