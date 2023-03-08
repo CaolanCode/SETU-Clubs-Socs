@@ -15,7 +15,7 @@
     <div class="header-buttons"></div>
   </div>
   <div class="main-container">
-    <form action="" method="post">
+    <form action="" method="post" class="form">
       <label>Personal Information:</label>
       <input type="text" placeholder="Enter student ID" id="student-id" />
       <input type="tel" placeholder="Enter phone number" id="phone-number" />
@@ -35,8 +35,10 @@
         <label>I declare that I am medically fit to partake in club/society activities:</label>
         <input type="checkbox" id="medical-checkbox" />
       </div>
-      <input type="submit" />
-      <input type="reset" />
+      <div class="form-buttons">
+        <input type="submit" value="Submit" />
+        <input type="reset" value="Cancel" />
+      </div>
     </form>
   </div>
 </body>

@@ -18,11 +18,13 @@
     </div>
   </div>
   <div class="main-container">
-    <form action="" method="post">
+    <form action="" method="post" class="form">
       <input type="text" placeholder="Username" id="username" />
       <input type="password" placeholder="Password" id="password" />
-      <input type="submit" />
-      <input type="reset" />
+      <div class="form-buttons">
+        <input type="submit" value="Submit" />
+        <input type="reset" value="Cancel" />
+      </div>
     </form>
   </div>
 </body>

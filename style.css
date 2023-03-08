@@ -5,6 +5,7 @@
   padding: 0;
   margin: 0;
   font-family: 'Roboto', sans-serif;
+  border: 1px solid black;
 }
 body{
   min-height: 100vh;
@@ -39,6 +40,7 @@ body{
   height: 90vh;
   background: linear-gradient(#e66465, #9198e5);
 }
+/*
 .input-container, .input-elements{
   display: flex;
   flex-direction: column;
@@ -58,7 +60,6 @@ body{
   padding: 1vh;
   border-radius: 1vw;
 }
-/* buttons */
 .input-buttons button, .header-buttons button{
   cursor: pointer;
 }
@@ -67,4 +68,30 @@ body{
 }
 .input-buttons button, .input-elements input{
   border: none;
+}
+*/
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+
+}
+.form > input{
+  padding: 1vh 1vw;
+  border-radius: 1vw;
+}
+.form-buttons{
+  display: flex;
+  gap: 1vw;
+}
+.form-buttons input, .header-buttons button{
+  cursor: pointer;
+}
+.form-buttons input:hover, .header-buttons button:hover{
+  background-color: rgba(255, 255, 255, 0.9);
+}
+.form-buttons > input{
+  flex: 1;
+  padding: 1vh;
+  border-radius: 1vw;
 }

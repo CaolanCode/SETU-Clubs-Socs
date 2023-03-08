@@ -15,12 +15,14 @@
     </div>
   </div>
   <div class="main-container">
-    <form action="" method="post">
+    <form action="" method="post" class="form">
       <input type="text" placeholder="Create Username" id="username" />
       <input type="password" placeholder="Create Password" id="newpwd" />
       <input type="password" placeholder="Confirm Password" id="confirm-newpwd" />
-      <input type="submit" value="Submit" class="form-button" />
-      <input type="reset" value="Cancel" class="form-button" />
+      <div class="form-buttons">
+        <input type="submit" value="Submit" />
+        <input type="reset" value="Cancel" />
+      </div>
     </form>
   </div>
 </body>
