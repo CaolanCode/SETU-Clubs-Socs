@@ -32,8 +32,39 @@ const register = () => {
   dob.type = 'date'
   dob.name = 'dob'
   // medical information
+  // next of kin
   const medicalInfoLabel = document.createElement('label')
-  medicalInfoLabel.innerText = 'Medical Information'
+  medicalInfoLabel.innerText = 'Medical Information:'
+  const nokName = document.createElement('input')
+  nokName.id = 'nok-name'
+  nokName.type = 'text'
+  nokName.name = 'nok-name'
+  nokName.placeholder = 'Enter Next of Kin name'
+  const nokNumber = document.createElement('input')
+  nokNumber.id = 'nok-number'
+  nokNumber.type = 'tel'
+  nokNumber.placeholder = 'Enter Next of Kin number'
+  // medical file
+  const medicalCertContainer = document.createElement('div')
+  medicalCertContainer.style.display = 'flex'
+  const medicalCertLabel = document.createElement('label')
+  medicalCertLabel.innerText = 'Medical Certificate:'
+  medicalCertLabel.style.fontSize = '.8rem'
+  const medicalCert = document.createElement('input')
+  medicalCert.type = 'file'
+  medicalCertContainer.appendChild(medicalCertLabel)
+  medicalCertContainer.appendChild(medicalCert)
+  // medical declaration
+  const medicalDecContainer = document.createElement('div')
+  medicalDecContainer.style.display = 'flex'
+  const medicalDecLabel = document.createElement('label')
+  medicalDecLabel.innerText = 'I declare that I am medically fit to partake in club activities:'
+  medicalDecLabel.style.fontSize = '.8rem'
+  const medicalDecBox = document.createElement('input')
+  medicalDecBox.type = 'checkbox'
+  medicalDecBox.id = 'medical-dec-chbx'
+  medicalDecContainer.appendChild(medicalDecLabel)
+  medicalDecContainer.appendChild(medicalDecBox)
 
   inputElements.appendChild(personalInfoLabel)
   inputElements.appendChild(studentID)
@@ -41,6 +72,24 @@ const register = () => {
   inputElements.appendChild(email)
   inputElements.appendChild(dob)
   inputElements.appendChild(medicalInfoLabel)
+  inputElements.appendChild(nokName)
+  inputElements.appendChild(nokNumber)
+  inputElements.appendChild(medicalCertContainer)
+  inputElements.appendChild(medicalDecContainer)
+
+  // buttons
+  const submitButton = document.createElement('button')
+  submitButton.type = 'submit'
+  submitButton.id = 'submit-register-btn'
+  submitButton.innerText = 'Submit'
+  submitButton.addEventListener('click', () => {
+  })
+  const cancelButton = document.createElement('button')
+  cancelButton.type = 'reset'
+  cancelButton.id = 'cancel-register-btn'
+  cancelButton.innerText = 'Cancel'
+  inputButtons.appendChild(submitButton)
+  inputButtons.appendChild(cancelButton)
 }
 
 const startPage = () => {
