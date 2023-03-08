@@ -36,17 +36,20 @@ body{
   display: flex;
   flex-direction: column;
   gap: 1vh;
-  width: 30vw;
+  width: 20vw;
 }
 .input-elements input{
-  padding: .5vh 1vw;
+  padding: 1vh 1vw;
+  border-radius: 1vw;
 }
 .input-buttons{
   display: flex;
+  gap: 1vw;
 }
 .input-buttons button{
   flex: 1;
   padding: .5vh;
+  border-radius: 1vh;
 }
 /* buttons */
 .input-buttons button, .reg-buttons button{
