@@ -7,10 +7,9 @@ const clearContainer = (() => {
   inputButtons.innerHTML = ''
 })
 
-
 const createAccount = (() => {
   clearContainer()
-  // student id
+  // create username
   const username = document.createElement('input')
   username.placeholder = 'Create Username'
   username.type = 'text'
@@ -65,6 +64,9 @@ const signIn = (() => {
   submitButton.type = 'submit'
   submitButton.id = 'submit-sign-in-btn'
   submitButton.innerText = 'Submit'
+  submitButton.addEventListener('click', () => {
+    window.location = './homepage.html'
+  })
   const cancelButton = document.createElement('button')
   cancelButton.type = 'reset'
   cancelButton.id = 'cancel-sign-in-btn'

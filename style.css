@@ -19,6 +19,7 @@ body{
   background: #8FBC8F;
   color: white;
   font-size: 2rem;
+  font-weight: 700;
 }
 .header-buttons{
   display: flex;
