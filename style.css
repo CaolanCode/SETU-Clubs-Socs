@@ -36,7 +36,7 @@ body{
   align-items: center;
   justify-content: center;
   height: 90vh;
-  background: #FFF8DC;
+  background: linear-gradient(#e66465, #9198e5);
 }
 .input-container, .input-elements{
   display: flex;
@@ -63,4 +63,7 @@ body{
 }
 .input-buttons button:hover, .header-buttons button:hover{
   background-color: rgba(255, 255, 255, 0.9);
+}
+.input-buttons button, .input-elements input{
+  border: none;
 }

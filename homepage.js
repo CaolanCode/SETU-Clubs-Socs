@@ -31,7 +31,32 @@ const register = () => {
   dob.id = 'dob'
   dob.type = 'date'
   dob.name = 'dob'
+  // picture file
+  const selfieFileContainer = document.createElement('div')
+  selfieFileContainer.style.display = 'flex'
+  const selfieFileLabel = document.createElement('label')
+  selfieFileLabel.innerText = 'Upload photo:'
+  selfieFileLabel.style.fontSize = '.8rem'
+  const selfieFile = document.createElement('input')
+  selfieFile.type = 'file'
+  selfieFileContainer.appendChild(selfieFileLabel)
+  selfieFileContainer.appendChild(selfieFile)
   // medical information
+  // medical conditions
+  const medicalCondition = document.createElement('input')
+  medicalCondition.placeholder = 'Enter medical conditions'
+  medicalCondition.id = 'medical-condition'
+  medicalCondition.type = 'text'
+  // doctors name
+  const doctorName = document.createElement('input')
+  doctorName.placeholder = 'Enter Doctor\'s name'
+  doctorName.id = 'doctor-name'
+  doctorName.type = 'text'
+  // doctors name
+  const doctorNumber = document.createElement('input')
+  doctorNumber.placeholder = 'Enter Doctor\'s name'
+  doctorNumber.id = 'doctor-number'
+  doctorNumber.type = 'tel'
   // next of kin
   const medicalInfoLabel = document.createElement('label')
   medicalInfoLabel.innerText = 'Medical Information:'
@@ -44,25 +69,16 @@ const register = () => {
   nokNumber.id = 'nok-number'
   nokNumber.type = 'tel'
   nokNumber.placeholder = 'Enter Next of Kin number'
-  // medical file
-  const medicalCertContainer = document.createElement('div')
-  medicalCertContainer.style.display = 'flex'
-  const medicalCertLabel = document.createElement('label')
-  medicalCertLabel.innerText = 'Medical Certificate:'
-  medicalCertLabel.style.fontSize = '.8rem'
-  const medicalCert = document.createElement('input')
-  medicalCert.type = 'file'
-  medicalCertContainer.appendChild(medicalCertLabel)
-  medicalCertContainer.appendChild(medicalCert)
   // medical declaration
   const medicalDecContainer = document.createElement('div')
   medicalDecContainer.style.display = 'flex'
   const medicalDecLabel = document.createElement('label')
-  medicalDecLabel.innerText = 'I declare that I am medically fit to partake in club activities:'
+  medicalDecLabel.innerText = 'I declare that I am medically fit to partake in club/society activities:'
   medicalDecLabel.style.fontSize = '.8rem'
   const medicalDecBox = document.createElement('input')
   medicalDecBox.type = 'checkbox'
   medicalDecBox.id = 'medical-dec-chbx'
+  medicalDecBox.style.cursor = 'pointer'
   medicalDecContainer.appendChild(medicalDecLabel)
   medicalDecContainer.appendChild(medicalDecBox)
 
@@ -71,10 +87,13 @@ const register = () => {
   inputElements.appendChild(phoneNumber)
   inputElements.appendChild(email)
   inputElements.appendChild(dob)
+  inputElements.appendChild(selfieFileContainer)
   inputElements.appendChild(medicalInfoLabel)
+  inputElements.appendChild(medicalCondition)
+  inputElements.appendChild(doctorName)
+  inputElements.appendChild(doctorNumber)
   inputElements.appendChild(nokName)
   inputElements.appendChild(nokNumber)
-  inputElements.appendChild(medicalCertContainer)
   inputElements.appendChild(medicalDecContainer)
 
   // buttons
