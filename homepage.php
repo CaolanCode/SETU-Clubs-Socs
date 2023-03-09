@@ -10,6 +10,9 @@
 </head>
 
 <body>
+  <?php
+  require_once 'connector.php';
+  ?>
   <div class="header">
     SETU Clubs & Societies
     <div class="header-buttons">
