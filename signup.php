@@ -27,6 +27,7 @@
       <input type="password" placeholder="Confirm Password" id="confirm-signup-pwd" name="confirm-signup-pwd"
         required />
       <input type="text" placeholder="Enter student ID" id="student-id" name="student-id" required />
+      <input type="text" placeholder="Enter full name" id="full-name" name="full-name" required />
       <input type="tel" placeholder="Enter phone number" id="phone-number" name="phone-number" required />
       <input type="email" placeholder="Enter email" id="email" name="email" required />
       <input type="date" id="dob" name="dob" name="dob" required />
@@ -61,6 +62,7 @@
       return;
     }
     $studentID = $_POST['student-id'];
+    $fullName = $_POST['name'];
     $phoneNum = $_POST['phone-number'];
     $email = $_POST['email'];
     $dob = $_POST['dob'];
@@ -86,21 +88,65 @@
     $pwdHash = hash('sha3-256', $signUpPwd, true);
     $pwdHashHex = bin2hex($pwdHash);
 
+    // encrypt student ID
+    $encryptSID = openssl_encrypt($studentID, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+    $encryptSIDHex = bin2hex($encryptSID);
+
+    // ecrypt full name
+    $encryptName = openssl_encrypt($fullName, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+    $encryptNameHex = bin2hex($encryptName);
+
+    // encrypt phone number
+    $encryptNumber = openssl_encrypt($phoneNum, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+    $encryptNumberHex = bin2hex($encryptNumber);
+
+    // encrypt email
+    $encryptEmail = openssl_encrypt($email, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+    $encryptEmailHex = bin2hex($encryptEmail);
+
+    // encrypt dob
+    $encryptDOB = openssl_encrypt($dob, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+    $encryptDOBHex = bin2hex($encryptDOB);
 
     // encrypt image
-    $encryptedPhoto = openssl_encrypt($photo, $cipher, $key, OPENSSL_RAW_DATA, $iv);
-    $encryptedPhotoHex = bin2hex($encryptedPhoto);
+    $encryptPhoto = openssl_encrypt($photo, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+    $encryptPhotoHex = bin2hex($encryptPhoto);
+
+    // encrypt medical conditions
+    $encryptMedCon = openssl_encrypt($medCon, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+    $encryptedMedConHex = bin2hex($encryptMedCon);
+
+    // encrypt doctors name
+    $encryptDocName = openssl_encrypt($docName, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+    $encryptDocNameHex = bin2hex($encryptDocName);
+
+    // encrypt doctors number
+    $encryptDocNum = openssl_encrypt($docNum, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+    $encryptDocNumHex = bin2hex($encryptDocNum);
+
+    // encrypt nok name
+    $encryptNokName = openssl_encrypt($nokName, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+    $encryptNokNameHex = bin2hex($encryptNokName);
+
+    // encrypt nok number
+    $encryptNokNum = openssl_encrypt($nokNum, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+    $encryptNokNumHex = bin2hex($encryptNokNum);
+
+
     $conn = new mysqli($servername, $serverUName, $serverPwd, $dbname);
-    $stmt = $conn->prepare("INSERT INTO students (username, pwd, student_id, phone_number, email, dob, photo, medical_declaration, medical_conditions, doctor_name, doctor_number, nok_name, nok_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssssssssss", $signUpUname, $signUpPwd, $studentID, $phoneNum, $email, $dob, $encryptedPhotoHex, $medDec, $medCon, $docName, $docNum, $nokName, $nokNum);
-    if ($stmt->execute() === TRUE) {
-      echo "successful";
-    } else {
-      echo $stmt->error;
-
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
     }
-    $stmt->close();
+    $stmt = $conn->prepare("INSERT INTO students (username, pwd, student_id, full_name, phone_number, email, dob, photo, medical_declaration, medical_conditions, doctor_name, doctor_number, nok_name, nok_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    if (!$stmt) {
+      die("Prepare failed: " . $conn->error);
+    }
+    $stmt->bind_param("ssssssssssssss", $signUpUname, $pwdHashHex, $encryptSIDHex, $encryptNameHex, $encryptNumberHex, $encryptEmailHex, $encryptDOBHex, $encryptPhotoHex, $medDec, $encryptedMedConHex, $encryptDocNameHex, $encryptDocNumHex, $encryptNokNameHex, $encryptNokNumHex);
+    if (!$stmt->execute()) {
+      die("Execute failed: " . $stmt->error);
+    }
 
+    $stmt->close();
     $conn->close();
   }
 
