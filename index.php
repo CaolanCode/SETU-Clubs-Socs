@@ -18,10 +18,10 @@ if (isset($_POST['submit'])) {
       header('Location: ./homepage.php');
       exit();
     } else {
-      echo "<script>alert('Invalid username or password, cant verify');</script>";
+      echo "<script>alert('Invalid username or password');</script>";
     }
   } else {
-    echo "<script>alert('Invalid username or password, no rows');</script>";
+    echo "<script>alert('Invalid username or password');</script>";
   }
 
   $stmt->close();
