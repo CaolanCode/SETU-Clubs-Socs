@@ -1,3 +1,103 @@
+<?php
+require_once 'connector.php';
+
+if (isset($_POST['submit'])) {
+  $signUpUname = $_POST['signup-uname'];
+  $signUpPwd = $_POST['signup-pwd'];
+  $confirmSignupPwd = $_POST['confirm-signup-pwd'];
+  if ($signUpPwd !== $confirmSignupPwd) {
+    echo 'passwords not the same';
+    return;
+  }
+  $studentID = $_POST['student-id'];
+  $fullName = $_POST['name'];
+  $phoneNum = $_POST['phone-number'];
+  $email = $_POST['email'];
+  $dob = $_POST['dob'];
+  $photo = file_get_contents($_FILES['photo']['tmp_name']);
+  $medCon = $_POST['med-cond'];
+  $docName = $_POST['doctor-name'];
+  $docNum = $_POST['doctor-number'];
+  $nokName = $_POST['nok-name'];
+  $nokNum = $_POST['nok-number'];
+  if (isset($_POST["med-chbox"])) {
+    $medDec = 1;
+  } else {
+    $medDec = 0;
+  }
+
+  // initialise crypto variables
+  $cipher = 'AES-128-CBC';
+  $key = 'thisisasecretkey';
+  $iv = random_bytes(16);
+  $hexIV = bin2hex($iv);
+
+  // hash password
+  $pwdHash = hash('sha3-256', $signUpPwd, true);
+  $pwdHashHex = bin2hex($pwdHash);
+
+  // encrypt student ID
+  $encryptSID = openssl_encrypt($studentID, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+  $encryptSIDHex = bin2hex($encryptSID);
+
+  // ecrypt full name
+  $encryptName = openssl_encrypt($fullName, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+  $encryptNameHex = bin2hex($encryptName);
+
+  // encrypt phone number
+  $encryptNumber = openssl_encrypt($phoneNum, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+  $encryptNumberHex = bin2hex($encryptNumber);
+
+  // encrypt email
+  $encryptEmail = openssl_encrypt($email, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+  $encryptEmailHex = bin2hex($encryptEmail);
+
+  // encrypt dob
+  $encryptDOB = openssl_encrypt($dob, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+  $encryptDOBHex = bin2hex($encryptDOB);
+
+  // encrypt image
+  $encryptPhoto = openssl_encrypt($photo, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+  $encryptPhotoHex = bin2hex($encryptPhoto);
+
+  // encrypt medical conditions
+  $encryptMedCon = openssl_encrypt($medCon, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+  $encryptedMedConHex = bin2hex($encryptMedCon);
+
+  // encrypt doctors name
+  $encryptDocName = openssl_encrypt($docName, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+  $encryptDocNameHex = bin2hex($encryptDocName);
+
+  // encrypt doctors number
+  $encryptDocNum = openssl_encrypt($docNum, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+  $encryptDocNumHex = bin2hex($encryptDocNum);
+
+  // encrypt nok name
+  $encryptNokName = openssl_encrypt($nokName, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+  $encryptNokNameHex = bin2hex($encryptNokName);
+
+  // encrypt nok number
+  $encryptNokNum = openssl_encrypt($nokNum, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+  $encryptNokNumHex = bin2hex($encryptNokNum);
+
+
+  $conn = new mysqli($servername, $serverUName, $serverPwd, $dbname);
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+  $stmt = $conn->prepare("INSERT INTO students (username, pwd, student_id, full_name, phone_number, email, dob, photo, medical_declaration, medical_conditions, doctor_name, doctor_number, nok_name, nok_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+  if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
+  }
+  $stmt->bind_param("ssssssssssssss", $signUpUname, $pwdHashHex, $encryptSIDHex, $encryptNameHex, $encryptNumberHex, $encryptEmailHex, $encryptDOBHex, $encryptPhotoHex, $medDec, $encryptedMedConHex, $encryptDocNameHex, $encryptDocNumHex, $encryptNokNameHex, $encryptNokNumHex);
+  if (!$stmt->execute()) {
+    die("Execute failed: " . $stmt->error);
+  }
+
+  $stmt->close();
+  $conn->close();
+}
+?>
 <!DOCTYPE html>
 
 <head>
@@ -9,9 +109,6 @@
 </head>
 
 <body>
-  <?php
-  require_once 'connector.php';
-  ?>
   <div class="header">
     SETU Clubs & Societies
     <div class="header-buttons">
@@ -52,107 +149,6 @@
     </form>
   </div>
 
-  <?php
-  if (isset($_POST['submit'])) {
-    $signUpUname = $_POST['signup-uname'];
-    $signUpPwd = $_POST['signup-pwd'];
-    $confirmSignupPwd = $_POST['confirm-signup-pwd'];
-    if ($signUpPwd !== $confirmSignupPwd) {
-      echo 'passwords not the same';
-      return;
-    }
-    $studentID = $_POST['student-id'];
-    $fullName = $_POST['name'];
-    $phoneNum = $_POST['phone-number'];
-    $email = $_POST['email'];
-    $dob = $_POST['dob'];
-    $photo = file_get_contents($_FILES['photo']['tmp_name']);
-    $medCon = $_POST['med-cond'];
-    $docName = $_POST['doctor-name'];
-    $docNum = $_POST['doctor-number'];
-    $nokName = $_POST['nok-name'];
-    $nokNum = $_POST['nok-number'];
-    if (isset($_POST["med-chbox"])) {
-      $medDec = 1;
-    } else {
-      $medDec = 0;
-    }
-
-    // initialise crypto variables
-    $cipher = 'AES-128-CBC';
-    $key = 'thisisasecretkey';
-    $iv = random_bytes(16);
-    $hexIV = bin2hex($iv);
-
-    // hash password
-    $pwdHash = hash('sha3-256', $signUpPwd, true);
-    $pwdHashHex = bin2hex($pwdHash);
-
-    // encrypt student ID
-    $encryptSID = openssl_encrypt($studentID, $cipher, $key, OPENSSL_RAW_DATA, $iv);
-    $encryptSIDHex = bin2hex($encryptSID);
-
-    // ecrypt full name
-    $encryptName = openssl_encrypt($fullName, $cipher, $key, OPENSSL_RAW_DATA, $iv);
-    $encryptNameHex = bin2hex($encryptName);
-
-    // encrypt phone number
-    $encryptNumber = openssl_encrypt($phoneNum, $cipher, $key, OPENSSL_RAW_DATA, $iv);
-    $encryptNumberHex = bin2hex($encryptNumber);
-
-    // encrypt email
-    $encryptEmail = openssl_encrypt($email, $cipher, $key, OPENSSL_RAW_DATA, $iv);
-    $encryptEmailHex = bin2hex($encryptEmail);
-
-    // encrypt dob
-    $encryptDOB = openssl_encrypt($dob, $cipher, $key, OPENSSL_RAW_DATA, $iv);
-    $encryptDOBHex = bin2hex($encryptDOB);
-
-    // encrypt image
-    $encryptPhoto = openssl_encrypt($photo, $cipher, $key, OPENSSL_RAW_DATA, $iv);
-    $encryptPhotoHex = bin2hex($encryptPhoto);
-
-    // encrypt medical conditions
-    $encryptMedCon = openssl_encrypt($medCon, $cipher, $key, OPENSSL_RAW_DATA, $iv);
-    $encryptedMedConHex = bin2hex($encryptMedCon);
-
-    // encrypt doctors name
-    $encryptDocName = openssl_encrypt($docName, $cipher, $key, OPENSSL_RAW_DATA, $iv);
-    $encryptDocNameHex = bin2hex($encryptDocName);
-
-    // encrypt doctors number
-    $encryptDocNum = openssl_encrypt($docNum, $cipher, $key, OPENSSL_RAW_DATA, $iv);
-    $encryptDocNumHex = bin2hex($encryptDocNum);
-
-    // encrypt nok name
-    $encryptNokName = openssl_encrypt($nokName, $cipher, $key, OPENSSL_RAW_DATA, $iv);
-    $encryptNokNameHex = bin2hex($encryptNokName);
-
-    // encrypt nok number
-    $encryptNokNum = openssl_encrypt($nokNum, $cipher, $key, OPENSSL_RAW_DATA, $iv);
-    $encryptNokNumHex = bin2hex($encryptNokNum);
-
-
-    $conn = new mysqli($servername, $serverUName, $serverPwd, $dbname);
-    if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    }
-    $stmt = $conn->prepare("INSERT INTO students (username, pwd, student_id, full_name, phone_number, email, dob, photo, medical_declaration, medical_conditions, doctor_name, doctor_number, nok_name, nok_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    if (!$stmt) {
-      die("Prepare failed: " . $conn->error);
-    }
-    $stmt->bind_param("ssssssssssssss", $signUpUname, $pwdHashHex, $encryptSIDHex, $encryptNameHex, $encryptNumberHex, $encryptEmailHex, $encryptDOBHex, $encryptPhotoHex, $medDec, $encryptedMedConHex, $encryptDocNameHex, $encryptDocNumHex, $encryptNokNameHex, $encryptNokNumHex);
-    if (!$stmt->execute()) {
-      die("Execute failed: " . $stmt->error);
-    }
-
-    $stmt->close();
-    $conn->close();
-  }
-
-
-
-  ?>
   <script src="app.js"></script>
 </body>
 

@@ -20,7 +20,9 @@
     </div>
   </div>
   <div class="main-container">
+    <h1>Welcome to our Society!</h1>
   </div>
+  <script src="app.js"></script>
 </body>
 
 </html>
