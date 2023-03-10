@@ -119,9 +119,10 @@ if (isset($_POST['submit'])) {
     <form action="signup.php" method="post" class="form" enctype='multipart/form-data'>
       <label>Personal Information:</label>
       <input type="text" placeholder="Create Username" id="signup-uname" name="signup-uname" required />
-      <input type="password" placeholder="Create Password" id="signup-pwd" name="signup-pwd" required />
+      <input type="password" placeholder="Create Password minimum 8 characters" id="signup-pwd" name="signup-pwd"
+        pattern=".{8,}" required />
       <input type="password" placeholder="Confirm Password" id="confirm-signup-pwd" name="confirm-signup-pwd"
-        required />
+        pattern=".{8,}" required />
       <input type="text" placeholder="Enter student ID" id="student-id" name="student-id" required />
       <input type="text" placeholder="Enter full name" id="full-name" name="full-name" required />
       <input type="tel" placeholder="Enter phone number" id="phone-number" name="phone-number" required />
