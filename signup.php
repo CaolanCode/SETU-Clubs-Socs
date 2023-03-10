@@ -30,11 +30,10 @@ if (isset($_POST['submit'])) {
   $cipher = 'AES-128-CBC';
   $key = 'thisisasecretkey';
   $iv = random_bytes(16);
-  $hexIV = bin2hex($iv);
+  $ivHex = bin2hex($iv);
 
   // hash password
-  $pwdHash = hash('sha3-256', $signUpPwd, true);
-  $pwdHashHex = bin2hex($pwdHash);
+  $pwdHash = password_hash($signUpPwd, PASSWORD_DEFAULT);
 
   // encrypt student ID
   $encryptSID = openssl_encrypt($studentID, $cipher, $key, OPENSSL_RAW_DATA, $iv);
@@ -85,11 +84,11 @@ if (isset($_POST['submit'])) {
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
-  $stmt = $conn->prepare("INSERT INTO students (username, pwd, student_id, full_name, phone_number, email, dob, photo, medical_declaration, medical_conditions, doctor_name, doctor_number, nok_name, nok_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+  $stmt = $conn->prepare("INSERT INTO students (username, pwd, student_id, full_name, phone_number, email, dob, photo, medical_declaration, medical_conditions, doctor_name, doctor_number, nok_name, nok_number, iv) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
   if (!$stmt) {
     die("Prepare failed: " . $conn->error);
   }
-  $stmt->bind_param("ssssssssssssss", $signUpUname, $pwdHashHex, $encryptSIDHex, $encryptNameHex, $encryptNumberHex, $encryptEmailHex, $encryptDOBHex, $encryptPhotoHex, $medDec, $encryptedMedConHex, $encryptDocNameHex, $encryptDocNumHex, $encryptNokNameHex, $encryptNokNumHex);
+  $stmt->bind_param("sssssssssssssss", $signUpUname, $pwdHash, $encryptSIDHex, $encryptNameHex, $encryptNumberHex, $encryptEmailHex, $encryptDOBHex, $encryptPhotoHex, $medDec, $encryptedMedConHex, $encryptDocNameHex, $encryptDocNumHex, $encryptNokNameHex, $encryptNokNumHex, $ivHex);
   if (!$stmt->execute()) {
     die("Execute failed: " . $stmt->error);
   }

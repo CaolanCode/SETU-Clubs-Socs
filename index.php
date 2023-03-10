@@ -5,9 +5,6 @@ if (isset($_POST['submit'])) {
   $loginUsername = filter_input(INPUT_POST, 'login-uname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $loginPassword = filter_input(INPUT_POST, 'login-pwd', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-  $pwdHash = hash('sha3-256', $loginPassword, true);
-  $pwdHashHex = bin2hex($pwdHash);
-
   $conn = new mysqli($servername, $serverUName, $serverPwd, $dbname);
   $stmt = $conn->prepare('SELECT pwd FROM students WHERE username = ?');
   $stmt->bind_param('s', $loginUsername);
@@ -17,7 +14,7 @@ if (isset($_POST['submit'])) {
   if ($stmt->num_rows > 0) {
     $stmt->bind_result($db_pwd);
     $stmt->fetch();
-    if ($pwdHashHex === $db_pwd) {
+    if (password_verify($loginPassword, $db_pwd)) {
       header('Location: ./homepage.php');
       exit();
     } else {
