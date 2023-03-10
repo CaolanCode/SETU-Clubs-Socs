@@ -20,31 +20,6 @@
     </div>
   </div>
   <div class="main-container">
-    <form action="" method="post" class="form">
-      <label>Personal Information:</label>
-      <input type="text" placeholder="Enter student ID" id="student-id" />
-      <input type="tel" placeholder="Enter phone number" id="phone-number" />
-      <input type="email" placeholder="Enter email" id="email" />
-      <input type="date" id="dob" name="dob" />
-      <div class="form-row">
-        <label>Upload photo:</label>
-        <input type="file" id="photo" />
-      </div>
-      <label>Medical Information:</label>
-      <input type="text" placeholder="Enter medical conditions" id="medical-condition" />
-      <input type="text" placeholder="Enter Doctor's name" id="doctor-name" />
-      <input type="tel" placeholder="Enter Doctor's number" id="doctor-number" />
-      <input type="text" placeholder="Enter Next of Kin name" id="nok-name" />
-      <input type="tel" placeholder="Enter Next of Kin number" id="nok-number" />
-      <div class="form-row">
-        <label>I declare that I am medically fit to partake in club/society activities:</label>
-        <input type="checkbox" id="medical-checkbox" />
-      </div>
-      <div class="form-buttons">
-        <input type="submit" value="Submit" />
-        <input type="reset" value="Cancel" />
-      </div>
-    </form>
   </div>
 </body>
 
