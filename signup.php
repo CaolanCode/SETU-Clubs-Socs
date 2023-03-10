@@ -30,7 +30,6 @@ if (isset($_POST['submit'])) {
   $cipher = 'AES-128-CBC';
   $key = 'thisisasecretkey';
   $iv = random_bytes(16);
-  $ivHex = bin2hex($iv);
 
   // hash password
   $pwdHash = password_hash($signUpPwd, PASSWORD_DEFAULT);
@@ -88,7 +87,7 @@ if (isset($_POST['submit'])) {
   if (!$stmt) {
     die("Prepare failed: " . $conn->error);
   }
-  $stmt->bind_param("sssssssssssssss", $signUpUname, $pwdHash, $encryptSIDHex, $encryptNameHex, $encryptNumberHex, $encryptEmailHex, $encryptDOBHex, $encryptPhotoHex, $medDec, $encryptedMedConHex, $encryptDocNameHex, $encryptDocNumHex, $encryptNokNameHex, $encryptNokNumHex, $ivHex);
+  $stmt->bind_param("sssssssssssssss", $signUpUname, $pwdHash, $encryptSIDHex, $encryptNameHex, $encryptNumberHex, $encryptEmailHex, $encryptDOBHex, $encryptPhotoHex, $medDec, $encryptedMedConHex, $encryptDocNameHex, $encryptDocNumHex, $encryptNokNameHex, $encryptNokNumHex, $iv);
   if (!$stmt->execute()) {
     die("Execute failed: " . $stmt->error);
   }
