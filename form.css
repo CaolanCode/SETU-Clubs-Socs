@@ -1,0 +1,22 @@
+/* sign-up container */
+.signup-container, .signin-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+}
+.signup-container {
+  padding-top: 3vh;
+}
+/* form */
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  width: 20vw;
+}
+.form > input{
+  padding: 1vh 1vw;
+  border-radius: 1vw;
+  border: none;
+}

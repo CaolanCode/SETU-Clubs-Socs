@@ -15,6 +15,8 @@ if (isset($_POST['submit'])) {
     $stmt->bind_result($db_pwd);
     $stmt->fetch();
     if (password_verify($loginPassword, $db_pwd)) {
+      session_start();
+      $_SESSION['username'] = $loginUsername;
       header('Location: ./homepage.php');
       exit();
     } else {
@@ -36,7 +38,8 @@ if (isset($_POST['submit'])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SETU Clubs and Society</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="form.css" />
 </head>
 
 <body>
@@ -47,7 +50,7 @@ if (isset($_POST['submit'])) {
       <button id="sign-up">Sign-Up</button>
     </div>
   </div>
-  <div class="main-container">
+  <div class="signin-container">
     <form action="index.php" method="post" class="form">
       <input type="text" placeholder="Username" id="login-uname" name="login-uname" required />
       <input type="password" placeholder="Password" id="login-pwd" name="login-pwd" required />

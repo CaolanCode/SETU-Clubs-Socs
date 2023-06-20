@@ -8,6 +8,7 @@
 }
 body{
   min-height: 100vh;
+  background: linear-gradient(#e66465, #9198e5);
 }
 /* Headers */
 .header{
@@ -31,50 +32,22 @@ body{
   border: none;
   border-radius: 1vh;
 }
-/* main container */
-.main-container{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 90vh;
-  background: linear-gradient(#e66465, #9198e5);
-}
-/* form */
-.form{
-  display: flex;
-  flex-direction: column;
-  gap: 1vh;
-  width: 20vw;
-
-}
-.form > input{
-  padding: 1vh 1vw;
-  border-radius: 1vw;
-}
-.form-buttons{
-  display: flex;
-  gap: 1vw;
-}
-.form-buttons input, .header-buttons button, .form-row > input{
+/* form buttons */
+.form-buttons input, .header-buttons button{
   cursor: pointer;
 }
 .form-buttons input:hover, .header-buttons button:hover{
   background-color: rgb(255, 255, 255);
+}
+.form-buttons{
+  display: flex;
+  gap: 1vw;
 }
 .form-buttons > input{
   flex: 1;
   padding: 1vh;
   border-radius: 1vw;
 }
-.form-buttons > input, .form > input {
+.form-buttons > input{
   border: none;
-}
-.form-row{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0 1vw;
-}
-.form-row > label{
-  font-size: 0.8rem;
 }
