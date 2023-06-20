@@ -3,7 +3,7 @@
 - Individual Project for SETU
 - Create a secure application
 - Implement secure hashing algorithm to store confidential information
-- Display user information when logs in
+- Display user information when logged in
 
 ## Screenshots
 ![sign-up page](./images/signup.png)
