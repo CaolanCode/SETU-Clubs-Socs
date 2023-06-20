@@ -26,6 +26,9 @@ $row = $result->fetch_assoc();
 
 $iv = hex2bin($row['iv']);
 
+$encrypted_std_id = hex2bin($row['student_id']);
+$std_id = openssl_decrypt($encrypted_std_id, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+
 $encrypted_std_name = hex2bin($row['full_name']);
 $full_name = openssl_decrypt($encrypted_std_name, $cipher, $key, OPENSSL_RAW_DATA, $iv);
 
@@ -48,7 +51,7 @@ $encrypted_doc_name = hex2bin($row['doctor_name']);
 $doc_name = openssl_decrypt($encrypted_doc_name, $cipher, $key, OPENSSL_RAW_DATA, $iv);
 
 $encrypted_doc_num = hex2bin($row['doctor_number']);
-$doc_name = openssl_decrypt($encrypted_doc_num, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+$doc_num = openssl_decrypt($encrypted_doc_num, $cipher, $key, OPENSSL_RAW_DATA, $iv);
 
 $encrypted_nok_name = hex2bin($row['nok_name']);
 $nok_name = openssl_decrypt($encrypted_nok_name, $cipher, $key, OPENSSL_RAW_DATA, $iv);
@@ -69,6 +72,7 @@ $conn->close();
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SETU Clubs and Society</title>
   <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="homepage.css" />
 </head>
 
 <body>
@@ -78,36 +82,50 @@ $conn->close();
       <button id="logout">Log-out</button>
     </div>
   </div>
-  <div class="main-container">
+  <div class="homepage-container">
     <h1>Welcome to our Society!</h1>
+    <div class="std-photo">
+      <img src="data:image/jpeg;base64,<?php echo base64_encode($std_photo); ?>" alt="Student Photo">
+    </div>
     <div class="info">
-      <div class="std-name">
+      <div class="details">
+        <p>Student ID: </p>
+        <?php echo $std_id; ?>
+      </div>
+      <div class="details">
+        <p>Name: </p>
         <?php echo $full_name; ?>
       </div>
-      <div class="std-num">
+      <div class="details">
+        <p>Phone number: </p>
         <?php echo $std_num; ?>
       </div>
-      <div class="std-email">
+      <div class="details">
+        <p>Email: </p>
         <?php echo $std_email; ?>
       </div>
-      <div class="std-dob">
+      <div class="details">
+        <p>DOB: </p>
         <?php echo $std_dob; ?>
       </div>
-      <div class="std-photo"><img src="data:image/jpeg;base64,<?php echo base64_encode($std_photo); ?>"
-          alt="Student Photo"></div>
-      <div class="std-med-cond">
+      <div class="details">
+        <p>Medical Condition: </p>
         <?php echo $std_med_cond; ?>
       </div>
-      <div class="doc-name">
+      <div class="details">
+        <p>Doctor's name: </p>
         <?php echo $doc_name; ?>
       </div>
-      <div class="doc-num">
+      <div class="details">
+        <p>Doctor's number: </p>
         <?php echo $doc_num; ?>
       </div>
-      <div class="nok-name">
+      <div class="details">
+        <p>Next of Kin name: </p>
         <?php echo $nok_name; ?>
       </div>
-      <div class="nok-num">
+      <div class="details">
+        <p>Next of Kin number</p>
         <?php echo $nok_num; ?>
       </div>
     </div>

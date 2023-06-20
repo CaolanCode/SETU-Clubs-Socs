@@ -10,8 +10,8 @@ if (isset($_POST['submit'])) {
     return;
   }
   $studentID = $_POST['student-id'];
-  $fullName = $_POST['name'];
-  $phoneNum = $_POST['phone-number'];
+  $fullName = $_POST['student-name'];
+  $phoneNum = $_POST['student-number'];
   $email = $_POST['email'];
   $dob = $_POST['dob'];
   $photo = file_get_contents($_FILES['photo']['tmp_name']);
@@ -30,6 +30,7 @@ if (isset($_POST['submit'])) {
   $cipher = 'AES-128-CBC';
   $key = 'thisisasecretkey';
   $iv = random_bytes(16);
+  $ivHex = bin2hex($iv);
 
   // hash password
   $pwdHash = password_hash($signUpPwd, PASSWORD_DEFAULT);
@@ -87,7 +88,7 @@ if (isset($_POST['submit'])) {
   if (!$stmt) {
     die("Prepare failed: " . $conn->error);
   }
-  $stmt->bind_param("sssssssssssssss", $signUpUname, $pwdHash, $encryptSIDHex, $encryptNameHex, $encryptNumberHex, $encryptEmailHex, $encryptDOBHex, $encryptPhotoHex, $medDec, $encryptedMedConHex, $encryptDocNameHex, $encryptDocNumHex, $encryptNokNameHex, $encryptNokNumHex, $iv);
+  $stmt->bind_param("sssssssssssssss", $signUpUname, $pwdHash, $encryptSIDHex, $encryptNameHex, $encryptNumberHex, $encryptEmailHex, $encryptDOBHex, $encryptPhotoHex, $medDec, $encryptedMedConHex, $encryptDocNameHex, $encryptDocNumHex, $encryptNokNameHex, $encryptNokNumHex, $ivHex);
   if (!$stmt->execute()) {
     die("Execute failed: " . $stmt->error);
   }
@@ -124,8 +125,8 @@ if (isset($_POST['submit'])) {
       <input type="password" placeholder="Confirm Password" id="confirm-signup-pwd" name="confirm-signup-pwd"
         pattern=".{8,}" required />
       <input type="text" placeholder="Enter student ID" id="student-id" name="student-id" required />
-      <input type="text" placeholder="Enter full name" id="full-name" name="full-name" required />
-      <input type="tel" placeholder="Enter phone number" id="phone-number" name="phone-number" required />
+      <input type="text" placeholder="Enter full name" id="student-name" name="student-name" required />
+      <input type="tel" placeholder="Enter phone number" id="student-number" name="student-number" required />
       <input type="email" placeholder="Enter email" id="email" name="email" required />
       <input type="date" id="dob" name="dob" name="dob" required />
       <div class="form-row">

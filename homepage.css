@@ -1,0 +1,21 @@
+.homepage-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.std-photo img {
+  width: 20vw;
+  height: auto;
+}
+.info, .std-photo, .homepage-container {
+  padding-top: 3vh;
+}
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3vw;
+  font-weight: 700;
+  color: white;
+}
